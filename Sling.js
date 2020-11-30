@@ -3,22 +3,22 @@ class Sling {
 		var options = {
 			bodyA: bodyA,
 			pointB: pointB,
-			stifness: 0.003,
-			length: 1.25,
+			stiffness: 0.003,
+			length: 1,
 		};
 		this.pointB = pointB;
-		this.Sling = constraint.create(options);
-		World.add(world, this.Sling);
+		this.sling = Matter.Constraint.create(options);
+		World.add(world, this.sling);
 	}
 	attach(body) {
-		this.Sling.bodyA = body;
+		this.sling.bodyA = body;
 	}
 	fly() {
-		this.Sling.bodyA = null;
+		this.sling.bodyA = null;
 	}
 	display() {
-		if (this.Sling.BodyA) {
-			var pointA = this.Body.position;
+		if (this.sling.bodyA) {
+			var pointA = this.sling.bodyA.position;
 			var pointB = this.pointB;
 
 			strokeWeight(2);

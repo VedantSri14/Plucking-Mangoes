@@ -35,46 +35,49 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	groundObject = new Ground(width / 2, 600, width, 20);
+	groundObject = new Ground(width / 2, 645, width, 20);
 	stoneObject = new Stone(140, 550, 20, 20);
-	mango1 = new Mango(400, 200, 30);
-	mango2 = new Mango(440, 230, 30);
-	mango3 = new Mango(470, 210, 30);
-	mango4 = new Mango(520, 430, 30);
-	mango5 = new Mango(320, 195, 30);
-	mango6 = new Mango(490, 355, 30);
-	mango7 = new Mango(560, 420, 30);
-	mango8 = new Mango(330, 400, 30);
-	mango9 = new Mango(380, 450, 30);
-	mango10 = new Mango(350, 490, 30);
-	mango11 = new Mango(480, 350, 30);
-	mango12 = new Mango(575, 320, 30);
-	mango13 = new Mango(500, 200, 30);
-	mango14 = new Mango(435, 325, 30);
-	slingObject = new Sling(stoneObject.body, { x: 140, y: 150 });
+	mango1 = new Mango(650, 200, 30);
+	mango2 = new Mango(690, 230, 30);
+	mango3 = new Mango(720, 210, 30);
+	mango4 = new Mango(770, 430, 30);
+	mango5 = new Mango(570, 195, 30);
+	mango6 = new Mango(740, 355, 30);
+	mango7 = new Mango(810, 420, 30);
+	mango8 = new Mango(580, 400, 30);
+	mango9 = new Mango(630, 450, 30);
+	mango10 = new Mango(600, 490, 30);
+	mango11 = new Mango(730, 350, 30);
+	mango12 = new Mango(825, 320, 30);
+	mango13 = new Mango(750, 200, 30);
+	mango14 = new Mango(685, 325, 30);
+	slingObject = new Sling(stoneObject.body, { x: 170, y: 470 });
 
 	Engine.run(engine);
 }
 
 function draw() {
 	background(0, 204, 255);
-	boyObject = createSprite(150, 300, 30, 100);
+	Engine.update(engine);
+	boyObject = createSprite(250, 540, 30, 100);
 	boyObject.addImage(boyImage);
-	treeObject = createSprite(500, 300, 30, 100);
+	boyObject.scale = 0.15;
+	treeObject = createSprite(800, 390, 30, 100);
 	treeObject.addImage(treeImage);
+	treeObject.scale = 0.4;
 
 	textSize(25);
 	fill(49, 99, 0);
 	text("Press 'space' for another chance to play!");
 
-	ground.display();
+	groundObject.display();
 	treeObject.display();
 	boyObject.display();
 	slingObject.display();
 	stoneObject.display();
 	mango1.display();
 	mango2.display();
-	mango3.dislpay();
+	mango3.display();
 	mango4.display();
 	mango5.display();
 	mango6.display();
@@ -101,6 +104,7 @@ function draw() {
 	detectCollision(stoneObject, mango13);
 	detectCollision(stoneObject, mango14);
 
+	keyPressed();
 	drawSprites();
 }
 function mouseDragged() {
@@ -109,7 +113,7 @@ function mouseDragged() {
 function mouseReleased() {
 	slingObject.fly();
 }
-function detectCollision() {
+function detectCollision(lstone, lmango) {
 	mangoBodyPosition = lmango.body.position;
 	stoneBodyPosition = lstone.body.position;
 
@@ -121,5 +125,10 @@ function detectCollision() {
 	);
 	if (distance <= lmango.r + lstone.r) {
 		Matter.Body.setStatic(lmango.body, false);
+	}
+}
+function keyPressed() {
+	if (keyCode === 32) {
+		slingObject.attach(stoneObject.body);
 	}
 }
